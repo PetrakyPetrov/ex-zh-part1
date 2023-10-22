@@ -11,5 +11,9 @@ jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-      - name: DEFINE MASTER ENV
-        run: echo "${GITHUB_REF#refs/*/}"
+      - name: CHECKOUT REPO
+        uses: actions/checkout@v2
+        
+      - name: DOCKER LOGIN
+        run: ls -l
+        # run: echo "${GITHUB_REF#refs/*/}"
