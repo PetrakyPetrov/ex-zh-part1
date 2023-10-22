@@ -13,5 +13,5 @@ jobs:
         uses: actions/checkout@v2
         
       - name: DOCKER LOGIN
-        run: echo ${{ secrets.GCP_SERVICE_ACC_KEY }} | base64 | docker login -u _json_key_base64 --password-stdin https://us-east1-docker.pkg.dev
+        run: echo ${{ secrets.GCP_SERVICE_ACC_KEY_ENCODED }} | docker login -u _json_key_base64 --password-stdin https://us-east1-docker.pkg.dev
         # run: echo "${GITHUB_REF#refs/*/}"
