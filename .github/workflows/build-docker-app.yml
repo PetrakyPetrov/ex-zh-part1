@@ -5,6 +5,10 @@ on:
     tags:
        - '*'
 
+env:
+  DOCKER_IMAGE_TAG: ${GITHUB_REF#refs/*/}
+  DOCKER_REGISTRY: us-east1-docker.pkg.dev
+
 jobs:
   build:
     runs-on: ubuntu-latest
@@ -12,6 +16,11 @@ jobs:
       - name: CHECKOUT REPO
         uses: actions/checkout@v2
         
-      - name: DOCKER LOGIN
-        run: echo ${{ secrets.GCP_SERVICE_ACC_KEY_ENCODED }} | docker login -u _json_key_base64 --password-stdin https://us-east1-docker.pkg.dev
-        # run: echo "${GITHUB_REF#refs/*/}"
+      - name: GCP DOCKER REGISTRY LOGIN
+        run: echo ${{ secrets.GCP_SERVICE_ACC_KEY_ENCODED }} | docker login -u _json_key_base64 --password-stdin ${{ env.DOCKER_REGISTRY }}
+
+      - name: BUILD DOCKER IMAGE
+        run: cd app/ && docker build -f ./Dockerfile -t ${{ env.DOCKER_IMAGE_TAG }}/my-app/${{ env.DOCKER_IMAGE_TAG }} .
+
+      - name: PUSH DOCKER IMAGE
+        run: docker push ${{ env.DOCKER_IMAGE_TAG }}/my-app/${{ env.DOCKER_IMAGE_TAG }}
