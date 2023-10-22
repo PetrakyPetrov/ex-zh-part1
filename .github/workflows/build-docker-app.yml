@@ -1,0 +1,15 @@
+name: BUILD_DOCKER_APP
+
+on:
+  push:
+    tags:
+       - '*'
+
+env:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: DEFINE MASTER ENV
+        run: echo "${GITHUB_REF#refs/*/}"
