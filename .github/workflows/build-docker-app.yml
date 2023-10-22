@@ -22,7 +22,7 @@ jobs:
         run: echo ${{ secrets.GCP_SERVICE_ACC_KEY_ENCODED }} | docker login -u _json_key_base64 --password-stdin ${{ env.DOCKER_REGISTRY }}
 
       - name: BUILD DOCKER IMAGE
-        run: cd app/ && docker build -f ./Dockerfile -t ${{ env.DOCKER_REGISTRY }}/${{ env.GCP_PROJECT_ID }}/${{ env.GCP_DOCKER_REPO }}/my-app/${{ env.DOCKER_IMAGE_TAG }} .
+        run: cd app/ && docker build -f ./Dockerfile -t ${{ env.DOCKER_REGISTRY }}/${{ env.GCP_PROJECT_ID }}/${{ env.GCP_DOCKER_REPO }}/${{ env.DOCKER_IMAGE_TAG }} .
 
       - name: PUSH DOCKER IMAGE
-        run: docker push ${{ env.DOCKER_REGISTRY }}/${{ env.GCP_PROJECT_ID }}/${{ env.GCP_DOCKER_REPO }}/my-app/${{ env.DOCKER_IMAGE_TAG }}
+        run: docker push ${{ env.DOCKER_REGISTRY }}/${{ env.GCP_PROJECT_ID }}/${{ env.GCP_DOCKER_REPO }}/${{ env.DOCKER_IMAGE_TAG }}
